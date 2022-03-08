@@ -57,12 +57,44 @@ const posts = [
 ];
 
 const eleContainer = document.querySelector(".posts-list")
-const eleCard = document.createElement("div");
+
 
 
 for (let i = 0; i < posts.length; i++){
     const eleCard = document.createElement("div");
     eleCard.classList.add("post");
+    if (posts[i].author.image == null){
+        eleCard.innerHTML = `
+        <div class="post__header">
+        <div class="post-meta">                    
+            <div class="post-meta__icon">
+                <div class="img-null">LF</div>                   
+            </div>
+            <div class="post-meta__data">
+                <div class="post-meta__author">${posts[i].author.name}</div>
+                <div class="post-meta__time">${posts[i].created}</div>
+            </div>                    
+        </div>
+        </div>
+        <div class="post__text">${posts[i].content}</div>
+        <div class="post__image">
+        <img src=${posts[i].media} alt="">
+        </div>
+        <div class="post__footer">
+        <div class="likes js-likes">
+            <div class="likes__cta">
+                <a class="like-button  js-like-button" href="#!" data-postid="1">
+                    <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                    <span class="like-button__label">Mi Piace</span>
+                </a>
+            </div>
+            <div class="likes__counter">
+                Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+            </div>
+        </div> 
+        </div>`;
+        eleContainer.append(eleCard);
+    } else {
     eleCard.innerHTML = `
 <div class="post__header">
 <div class="post-meta">                    
@@ -93,26 +125,25 @@ for (let i = 0; i < posts.length; i++){
 </div> 
 </div>`;
 eleContainer.append(eleCard);
+    }
 }
 
 
 const btnLike = document.querySelector(".likes__cta");
 const fasColor = document.querySelector(".fa-thumbs-up");
 const textColor = document.querySelector(".like-button__label");
-const like = document.querySelector("like-counter-1")
+const like = document.querySelector("#like-counter-1")
 
 
+btnLike.addEventListener("click", color)
 
-
-btnLike.addEventListener("click", function(){
-    const eleCard = document.createElement("div");
+    
+function color(){
     fasColor.style.color = "green";
     textColor.style.color = "green";
-    eleCard.innerHTML =  posts[0].likes + 1;
+    like.innerHTML = posts[0].likes + 1;
+}
 
-    console.log(posts[0].likes + 1)
-    
-});
 
 /*
 btnLike.forEach((likes__cta)=>{
@@ -120,6 +151,6 @@ btnLike.forEach((likes__cta)=>{
         fasColor.style.color = "green";
         textColor.style.color = "green";
      })
-});*/
-
+});
+*/
 
