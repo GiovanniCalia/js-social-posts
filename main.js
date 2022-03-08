@@ -95,3 +95,9 @@ for (let i = 0; 1 < posts.length; i++){
 </div>`;
 eleContainer.append(eleCard);
 }
+
+const btnMipiace = document.getElementsByClassName("likes__cta");
+
+btnMipiace.addEventListener("click", function(){
+    console.log("ciao")
+})
