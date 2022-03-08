@@ -55,9 +55,9 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
-console.log(posts[1].author.name)
 
 const eleContainer = document.querySelector(".posts-list")
+const eleCard = document.createElement("div");
 
 
 for (let i = 0; i < posts.length; i++){
@@ -82,7 +82,7 @@ for (let i = 0; i < posts.length; i++){
 <div class="post__footer">
 <div class="likes js-likes">
     <div class="likes__cta">
-        <a class="like-button  js-like-button" href="#" data-postid="1">
+        <a class="like-button  js-like-button" href="#!" data-postid="1">
             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
             <span class="like-button__label">Mi Piace</span>
         </a>
@@ -97,8 +97,29 @@ eleContainer.append(eleCard);
 
 
 const btnLike = document.querySelector(".likes__cta");
-console.log(btnLike);
+const fasColor = document.querySelector(".fa-thumbs-up");
+const textColor = document.querySelector(".like-button__label");
+const like = document.querySelector("like-counter-1")
+
+
+
 
 btnLike.addEventListener("click", function(){
-    btnLike.style.backgroundColor = "green";
-})
+    const eleCard = document.createElement("div");
+    fasColor.style.color = "green";
+    textColor.style.color = "green";
+    eleCard.innerHTML =  posts[0].likes + 1;
+
+    console.log(posts[0].likes + 1)
+    
+});
+
+/*
+btnLike.forEach((likes__cta)=>{
+    btnLike.addEventListener("click", (even)=>{  
+        fasColor.style.color = "green";
+        textColor.style.color = "green";
+     })
+});*/
+
+
