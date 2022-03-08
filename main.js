@@ -55,27 +55,30 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
-console.log(posts[0])
+console.log(posts[1].author.image)
 
 const eleContainer = document.querySelector(".posts-list")
-const eleCard = document.createElement("div");
 
-eleCard.classList.add("post");
-eleCard.innerHTML = `
+
+
+for (let i = 0; 1 < posts.length; i++){
+    const eleCard = document.createElement("div");
+    eleCard.classList.add("post");
+    eleCard.innerHTML = `
 <div class="post__header">
 <div class="post-meta">                    
     <div class="post-meta__icon">
-        <img class="profile-pic" src=${posts[0].image} alt="Phil Mangione">                    
+        <img class="profile-pic" src=${posts[i].author.image} alt=${posts[i].author.name}>                    
     </div>
     <div class="post-meta__data">
         <div class="post-meta__author">Phil Mangione</div>
-        <div class="post-meta__time">${posts[0].created}</div>
+        <div class="post-meta__time">${posts[i].created}</div>
     </div>                    
 </div>
 </div>
-<div class="post__text">${posts[0].content}</div>
+<div class="post__text">${posts[i].content}</div>
 <div class="post__image">
-<img src=${posts[0].media} alt="">
+<img src=${posts[i].media} alt="">
 </div>
 <div class="post__footer">
 <div class="likes js-likes">
@@ -86,16 +89,9 @@ eleCard.innerHTML = `
         </a>
     </div>
     <div class="likes__counter">
-        Piace a <b id="like-counter-1" class="js-likes-counter">${posts[0].likes}</b> persone
+        Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
     </div>
 </div> 
 </div>`;
-
-eleContainer.append(eleCard)
-
-
-
-
-
-
-
+eleContainer.append(eleCard);
+}
