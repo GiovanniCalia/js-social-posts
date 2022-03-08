@@ -55,13 +55,12 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
-console.log(posts[1].author.image)
+console.log(posts[1].author.name)
 
 const eleContainer = document.querySelector(".posts-list")
 
 
-
-for (let i = 0; 1 < posts.length; i++){
+for (let i = 0; i < posts.length; i++){
     const eleCard = document.createElement("div");
     eleCard.classList.add("post");
     eleCard.innerHTML = `
@@ -71,7 +70,7 @@ for (let i = 0; 1 < posts.length; i++){
         <img class="profile-pic" src=${posts[i].author.image} alt=${posts[i].author.name}>                    
     </div>
     <div class="post-meta__data">
-        <div class="post-meta__author">Phil Mangione</div>
+        <div class="post-meta__author">${posts[i].author.name}</div>
         <div class="post-meta__time">${posts[i].created}</div>
     </div>                    
 </div>
@@ -96,8 +95,10 @@ for (let i = 0; 1 < posts.length; i++){
 eleContainer.append(eleCard);
 }
 
-const btnMipiace = document.getElementsByClassName("likes__cta");
 
-btnMipiace.addEventListener("click", function(){
-    console.log("ciao")
+const btnLike = document.querySelector(".likes__cta");
+console.log(btnLike);
+
+btnLike.addEventListener("click", function(){
+    btnLike.style.backgroundColor = "green";
 })
