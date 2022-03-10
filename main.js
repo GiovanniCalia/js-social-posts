@@ -57,18 +57,18 @@ const posts = [
 ];
 
 const eleContainer = document.querySelector(".posts-list")
-
-
+const arrLikedIds = [];
 
 for (let i = 0; i < posts.length; i++){
     const eleCard = document.createElement("div");
     eleCard.classList.add("post");
+    eleCard.dataset.postId = posts[i].id;
     if (posts[i].author.image == null){
         eleCard.innerHTML = `
         <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <div class="img-null">LF</div>                   
+                <div class="profile-pic-default">LF</div>                   
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${posts[i].author.name}</div>
@@ -83,13 +83,13 @@ for (let i = 0; i < posts.length; i++){
         <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#!" data-postid="1">
+                <a class="like-button  js-like-button  ${arrLikedIds.includes(posts[i].id) ? 'like-button--liked': ''}" href="#!">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+                Piace a <b class="js-likes-counter">${posts[i].likes}</b> persone
             </div>
         </div> 
         </div>`;
@@ -114,43 +114,55 @@ for (let i = 0; i < posts.length; i++){
 <div class="post__footer">
 <div class="likes js-likes">
     <div class="likes__cta">
-        <a class="like-button  js-like-button" href="#!" data-postid="1">
+        <a class="like-button  js-like-button ${arrLikedIds.includes(posts[i].id) ? 'like-button--liked': ''}" href="#!">
             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
             <span class="like-button__label">Mi Piace</span>
         </a>
     </div>
     <div class="likes__counter">
-        Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+        Piace a <b class="js-likes-counter">${posts[i].likes}</b> persone
     </div>
 </div> 
 </div>`;
-eleContainer.append(eleCard);
     }
+
+eleCard.querySelector('.js-like-button').addEventListener('click', colorLike);
+eleContainer.append(eleCard);
 }
 
+function colorLike(){
+    //event.preventDefault();
+    const btnLike = this;
+    const elePost = btnLike.closest(".post");
+    const postId = parseInt(elePost.dataset.postId);
+    const eleCounter = elePost.querySelector('.js-likes-counter');
 
-const btnLike = document.querySelector(".likes__cta");
-const fasColor = document.querySelector(".fa-thumbs-up");
-const textColor = document.querySelector(".like-button__label");
-const like = document.querySelector("#like-counter-1")
 
+    let iLiked = 0;
+    while (postId != posts[iLiked].id){
+        iLiked++;
+    }
+    const obPost = posts[iLiked];
 
-btnLike.addEventListener("click", color)
-
-    
-function color(){
-    fasColor.style.color = "green";
-    textColor.style.color = "green";
-    like.innerHTML = posts[0].likes + 1;
+    if (btnLike.classList.contains('like-button--liked')){
+        removeLike(btnLike, obPost);
+    } else{
+        addLike(btnLike, obPost);
+    }
+    eleCounter.innerHTML = obPost.likes;
 }
 
+function removeLike(btnLikeArgument, objArgument) {
+	btnLikeArgument.classList.remove('like-button--liked');
 
-/*
-btnLike.forEach((likes__cta)=>{
-    btnLike.addEventListener("click", (even)=>{  
-        fasColor.style.color = "green";
-        textColor.style.color = "green";
-     })
-});
-*/
+	objArgument.likes--;
+	const index = arrLikedIds.indexOf(objArgument.id);
+	arrLikedIds.splice(index, 1);
+}
 
+function addLike(btnLikeArgument, objArgument) {
+	btnLikeArgument.classList.add('like-button--liked');
+
+	objArgument.likes++;
+	arrLikedIds.push(objArgument.id);
+}
